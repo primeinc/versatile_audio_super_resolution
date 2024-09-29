@@ -19,3 +19,4 @@ jobs:
 
       - name: Push model to Replicate
         run: cog push r8.im/primeinc/audio-super-resolution
+        
