@@ -1,21 +1,21 @@
-name: Deploy to R8
+name: Push to Replicate
+
 on:
   push:
     branches:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install Cog
-      run: pip install cog
+      - name: Setup Cog
+        uses: replicate/setup-cog@v2
+        with:
+          token: ${{ secrets.R8_TOKEN }}
 
-    - name: Deploy model to R8
-      run: cog push r8.im/primeinc/audio-super-resolution
-      env:
-        R8_TOKEN: ${{ secrets.R8_TOKEN }}
+      - name: Push model to Replicate
+        run: cog push r8.im/primeinc/audio-super-resolution
